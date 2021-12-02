@@ -14,6 +14,7 @@ import {
 } from "stream-chat-react";
 import "stream-chat-react/dist/css/index.css";
 import styled from "styled-components";
+import ChannelBody from "./components/ChannelBody";
 
 import CustomChannelList from "./components/CustomChannelList";
 
@@ -95,7 +96,11 @@ function App() {
 					<div className="left-column">
 						<CustomChannelList />
 					</div>
-					<div className="right-column"></div>
+					<div className="right-column">
+						<Channel>
+							<ChannelBody />
+						</Channel>
+					</div>
 				</Container>
 			</Chat>
 		</div>
