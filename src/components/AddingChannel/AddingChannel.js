@@ -38,7 +38,7 @@ const TABS = [
 	},
 ];
 
-export default function AddingChannel() {
+export default function AddingChannel({ onClose }) {
 	const [activeTab, setActiveTab] = useState(TABS[0].id);
 
 	return (
@@ -55,7 +55,7 @@ export default function AddingChannel() {
 				))}
 			</div>
 
-			{activeTab === "browse" && <BrowseChannels />}
+			{activeTab === "browse" && <BrowseChannels onClose={onClose} />}
 			{activeTab === "create" && <></>}
 		</Container>
 	);

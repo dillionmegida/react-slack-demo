@@ -14,8 +14,8 @@ const Container = styled.div`
 	}
 `;
 
-export default function BrowseChannels() {
-	const { client } = useChatContext();
+export default function BrowseChannels({ onClose }) {
+	const { client, setActiveChannel } = useChatContext();
 	const [channels, setChannels] = useState([]);
 	const [loadingChannels, setLoadingChannels] = useState(true);
 
@@ -31,6 +31,17 @@ export default function BrowseChannels() {
 		fetchChannels();
 	}, []);
 
+	const joinChannel = (id) => {
+		const channel = channels.find((c) => c.id === id);
+
+		if (!channel) return onClose();
+
+		channel.addMembers([client.user.id]);
+		setActiveChannel(channel);
+
+		onClose();
+	};
+
 	return (
 		<Container>
 			{loadingChannels ? (
@@ -38,7 +49,7 @@ export default function BrowseChannels() {
 			) : (
 				<ul>
 					{channels.map((c) => (
-						<ChannelItem key={c.cid} onJoin={null} channel={c} />
+						<ChannelItem key={c.cid} onJoin={joinChannel} channel={c} />
 					))}
 				</ul>
 			)}

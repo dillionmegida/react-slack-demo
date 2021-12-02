@@ -101,7 +101,11 @@ function App() {
 					</div>
 					<div className="right-column">
 						<Channel>
-							{addingTeamChannel ? <AddingChannel /> : <ChannelBody />}
+							{addingTeamChannel ? (
+								<AddingChannel onClose={() => setAddingTeamChannel(false)} />
+							) : (
+								<ChannelBody />
+							)}
 						</Channel>
 					</div>
 				</Container>
