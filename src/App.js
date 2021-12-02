@@ -3,7 +3,15 @@
 import { useState, useEffect } from "react";
 
 import { StreamChat } from "stream-chat";
-import { Chat } from "stream-chat-react";
+import {
+	Chat,
+	Channel,
+	Window,
+	ChannelHeader,
+	MessageInput,
+	MessageList,
+} from "stream-chat-react";
+import 'stream-chat-react/dist/css/index.css';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -34,26 +42,48 @@ const getRandomUser = () => {
 
 function App() {
 	const [chatClient, setChatClient] = useState(null);
+	const [channel, setChannel] = useState(null);
 
 	useEffect(() => {
-		function initChat() {
+		async function initChat() {
 			const client = StreamChat.getInstance(API_KEY);
 
 			const user = getRandomUser();
 
 			client.connectUser(user, client.devToken(user.id));
 
-			setChatClient(chatClient);
+			const channel = client.channel("team", "general", {
+				name: "General",
+				image: "https://picsum.photos/id/195/200/300",
+			});
+
+			await channel.create();
+			channel.addMembers([user.id]);
+			setChannel(channel);
+
+			setChatClient(client);
 		}
 
 		initChat();
+
+		return () => {
+			if (chatClient) chatClient.disconnectUser();
+		};
 	}, []);
 
-	if (!chatClient) return <></>;
+	if (!chatClient || !channel) return <></>;
 
 	return (
 		<div>
-			<Chat client={chatClient} theme={"messaging light"}></Chat>
+			<Chat client={chatClient} theme={"messaging light"}>
+				<Channel channel={channel}>
+					<Window>
+						<ChannelHeader />
+						<MessageList />
+						<MessageInput />
+					</Window>
+				</Channel>
+			</Chat>
 		</div>
 	);
 }
