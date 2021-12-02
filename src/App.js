@@ -15,6 +15,7 @@ import {
 import "stream-chat-react/dist/css/index.css";
 import styled from "styled-components";
 import ChannelBody from "./components/ChannelBody";
+import AddingChannel from "./components/AddingChannel/AddingChannel";
 
 import CustomChannelList from "./components/CustomChannelList";
 
@@ -60,6 +61,8 @@ function App() {
 	const [chatClient, setChatClient] = useState(null);
 	const [channel, setChannel] = useState(null);
 
+	const [addingTeamChannel, setAddingTeamChannel] = useState(false);
+
 	useEffect(() => {
 		async function initChat() {
 			const client = StreamChat.getInstance(API_KEY);
@@ -94,11 +97,11 @@ function App() {
 			<Chat client={chatClient} theme={"messaging light"}>
 				<Container>
 					<div className="left-column">
-						<CustomChannelList />
+						<CustomChannelList onClickAdd={() => setAddingTeamChannel(true)} />
 					</div>
 					<div className="right-column">
 						<Channel>
-							<ChannelBody />
+							{addingTeamChannel ? <AddingChannel /> : <ChannelBody />}
 						</Channel>
 					</div>
 				</Container>
