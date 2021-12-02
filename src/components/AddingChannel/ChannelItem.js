@@ -51,7 +51,7 @@ export default function ChannelItem({ onJoin, channel }) {
 			</div>
 			<div>
 				<span className="name">{channel?.data?.name}</span>
-				<p className="desc">{channel?.data?.description || "No description"}</p>
+				<p className="desc">{channel?.data?.desc || "No description"}</p>
 			</div>
 			<button onClick={() => onJoin(channel?.id)}>Join</button>
 		</Item>
