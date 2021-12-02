@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState,useEffect} from 'react';
+
+import {StreamChat} from 'stream-chat';
+
+const API_KEY=process.env.REACT_APP_API_KEY
 
 function App() {
+    const [chatClient, setChatClient] = useState(null);
+
+    useEffect(() => {
+        function initChat() {
+            const client = StreamChat.getInstance(API_KEY);
+        }
+
+        initChat()
+    }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
     </div>
   );
 }
