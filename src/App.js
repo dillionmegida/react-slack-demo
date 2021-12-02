@@ -10,9 +10,23 @@ import {
 	ChannelHeader,
 	MessageInput,
 	MessageList,
-    ChannelList,
+	ChannelList,
 } from "stream-chat-react";
-import 'stream-chat-react/dist/css/index.css';
+import "stream-chat-react/dist/css/index.css";
+import styled from "styled-components";
+
+import CustomChannelList from "./components/CustomChannelList";
+
+const Container = styled.div`
+	display: flex;
+	.left-column {
+		width: 300px;
+	}
+
+	.right-column {
+		flex: 1;
+	}
+`;
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -77,14 +91,12 @@ function App() {
 	return (
 		<div>
 			<Chat client={chatClient} theme={"messaging light"}>
-                <ChannelList />
-				<Channel>
-					<Window>
-						<ChannelHeader />
-						<MessageList />
-						<MessageInput />
-					</Window>
-				</Channel>
+				<Container>
+					<div className="left-column">
+						<CustomChannelList />
+					</div>
+					<div className="right-column"></div>
+				</Container>
 			</Chat>
 		</div>
 	);
