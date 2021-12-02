@@ -10,6 +10,7 @@ import {
 	ChannelHeader,
 	MessageInput,
 	MessageList,
+    ChannelList,
 } from "stream-chat-react";
 import 'stream-chat-react/dist/css/index.css';
 
@@ -76,7 +77,8 @@ function App() {
 	return (
 		<div>
 			<Chat client={chatClient} theme={"messaging light"}>
-				<Channel channel={channel}>
+                <ChannelList />
+				<Channel>
 					<Window>
 						<ChannelHeader />
 						<MessageList />
